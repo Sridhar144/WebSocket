@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Viewer</title>
+</head>
+<body>
+    <h1>Log Updates</h1>
+    <pre id="log"></pre>
+    <script>
+        const log = document.getElementById('log');
+        const socket = new WebSocket('ws://' + window.location.host + '/ws/log/');
+
+        socket.onmessage = function(e) {
+            const newLog = document.createElement('div');
+            newLog.textContent = e.data;
+            log.appendChild(newLog);
+            log.scrollTop = log.scrollHeight; // Auto-scroll to the bottom
+        };
+    </script>
+</body>
+</html>
